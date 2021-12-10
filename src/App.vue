@@ -75,6 +75,29 @@
   top: 39px;
   left: 28px;
 }
+@media (max-width: 767px) {
+  // App.vue
+  .taiwan {
+    position: absolute;
+    top: 131%;
+    min-height: 30vw;
+  }
+  .logo {
+    min-height: 34vw;
+  }
+  .atHome {
+    top: 30%;
+    left: -69%;
+    height: 164vw;
+    width: 164vw;
+  }
+  .atOther {
+    height: 224px;
+  }
+  .logoOther {
+    height: 74px;
+  }
+}
 </style>
 
 <script>

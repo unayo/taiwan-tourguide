@@ -1,13 +1,13 @@
 <template>
 <div class="row my-5">
   <template v-for="item in cardItem" :key="item.ID">
-    <div class="col-3 my-3">
+    <div class="card-item col-6 col-md-4 col-lg-3 my-3">
       <a
         @click.prevent="itemsDetail(item.ID)"
         href="#" class="item">
         <div class="bg-shadow rounded-1 card bg-dark text-white">
           <img
-            :src="Object.values(item.Picture).length < 1 ? require('../assets/images/img.png') : item.Picture.PictureUrl1"
+            :src="Object.values(item.Picture).length < 1 ? require('@/assets/images/img.png') : item.Picture.PictureUrl1"
             class="rounded-1 card-img h-100" alt="item.Picture.PictureDescription1">
           <div class="overlay">
             <div class="pin">
@@ -16,19 +16,21 @@
             <div class="detail">
               <span
                 :style="color"
-                class="badge py-1 px-2 mb-2" style="border-radius: 5px">{{ item.Class }}</span>
+                class="badge py-1 px-2 mb-2 me-1" style="border-radius: 5px">{{ item.Class }}</span>
               <span
                 :style="color"
                 class="badge py-1 px-2 mb-2 me-1" style="border-radius: 5px">{{ item.Class1 }}</span>
               <span
                 :style="color"
-                class="badge py-1 px-2 mb-2" style="border-radius: 5px">{{ item.Class2 }}</span>
-              <h5 class="card-title">{{ item.Name }}</h5>
+                class="badge py-1 px-2 mb-2 me-1" style="border-radius: 5px">{{ item.Class2 }}</span>
+              <!-- 旅宿星級 -->
+              <span v-if="item['Grade'] != undefined " class="badge py-1 px-2 mb-2" style="border-radius: 5px; background-color: #7879F1">{{ item.Grade }}</span>
+              <h6 class="card-title">{{ item.Name }}</h6>
               <p class="card-text">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                   <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                 </svg>
-                {{ item.Address.substr(0, 3) }}
+                {{ item.Address.substr(0, 3) }} {{ item.City }}
               </p>
             </div>
           </div>
@@ -52,7 +54,8 @@
       }
     }
     .card {
-      height: 357px;
+      // height: 357px;
+      aspect-ratio: 4 / 5;
       border: none;
       overflow: hidden;
       img {
@@ -74,6 +77,7 @@
     .detail {
       position: absolute;
       left: 20px;
+      right: 20px;
       bottom: 20px;
     }
     .pin {

@@ -1,43 +1,46 @@
 <template>
   <div class="banner">
     <div class="d-flex justify-content-center align-items-center h-100">
-      <h2 class="noto-JP text-white">{{ selectCityTW.substr(0, 1) }}</h2>
-      <h3 class="noto-JP text-uppercase text-white px-5 mx-5">{{ selectCity }}</h3>
-      <h2 class="noto-JP text-white">{{ selectCityTW.substr(1, 1) }}</h2>
+      <h2 class="mt-phone noto-JP text-white">{{ selectCityTW.substr(0, 1) }}</h2>
+      <h3 class="mt-phone noto-JP text-uppercase text-white px-0 mx-0 px-md-5 mx-md-5">{{ selectCity }}</h3>
+      <h2 class="mt-phone noto-JP text-white">{{ selectCityTW.substr(1, 1) }}</h2>
     </div>
   </div>
   <div class="container position-relative" style="margin-top: -29px">
-    <div class="row justify-content-center">
-      <div class="col-5 col-md-2">
-        <select
-          v-model="selectCity"
-          class="form-select shadow" aria-label="city">
-          <option selected value="">請選擇城市</option>
-          <template v-for="item in Tourism" :key="item.city">
-            <option :value="item.en">{{ item.city }}</option>
-          </template>
-        </select>
-      </div>
-      <div class="col-5 col-md-2">
-        <select
-          v-model="selectCategory"
-          class="form-select shadow" aria-label="category">
-          <option selected value="">選擇特色</option>
-          <template v-for="item in Category" :key="item.name">
-            <option :value="item.name">{{ item.tag }}</option>
-          </template>
-        </select>
-      </div>
+    <div class="row d-flex justify-content-center">
+      <select
+        v-model="selectCity"
+        class="form-btn form-select shadow me-3" aria-label="city">
+        <option selected value="">請選擇城市</option>
+        <template v-for="item in Tourism" :key="item.city">
+          <option :value="item.en">{{ item.city }}</option>
+        </template>
+      </select>
+      <select
+        v-model="selectCategory"
+        class="form-btn form-select shadow me-3" aria-label="category">
+        <option selected value="">選擇特色</option>
+        <template v-for="item in Category" :key="item.name">
+          <option :value="item.name">{{ item.tag }}</option>
+        </template>
+      </select>
+      <button
+        @click="clickSearch"
+        type="button" class="search-btn btn btn-info shadow">
+        <img src="../assets/images/search.svg" alt="search icon">
+      </button>
     </div>
     <div class="map position-absolute">
-      <button type="submit" class="btn btn-light shadow">
-        <img alt="logo" class="logo" src="@/assets/images/map.svg">
-      </button>
+      <router-link to="/map"
+        type="submit" class="btn btn-light shadow">
+        <img alt="map" src="@/assets/images/map.svg">
+      </router-link>
     </div>
     <Card
       :card-item="getapiData"
       :card-tag="selectCategory"
     ></Card>
+    <h4 class="text-center">{{ notFound }}</h4>
   </div>
   <Footer></Footer>
 </template>
@@ -53,9 +56,24 @@
     }
   }
   .map {
-    top: 0;
+    top: -9px;
     right: 0;
     padding: 0.75rem;
+  }
+  .form-btn {
+    width: 144px;
+  }
+  .search-btn {
+    width: 63px;
+  }
+  // 手機版
+  @media (max-width: 767px) {
+    .map {
+      top: -270px;
+    }
+    .mt-phone {
+      margin-top: 108px;
+    }
   }
 </style>
 
@@ -75,7 +93,7 @@ export default {
       homeInfo: this.getProps,
       selectCategory: 'Restaurant',
       selectCity: 'Tainan',
-      selectCityTW: '台南',
+      selectCityTW: '台灣',
       Tourism: [
         {
           city: '臺北市',
@@ -184,7 +202,8 @@ export default {
           tag: '活動'
         }
       ],
-      getapiData: []
+      getapiData: [],
+      notFound: ''
     }
   },
   methods: {
@@ -212,20 +231,27 @@ export default {
         })
         .catch(error => {
           console.log('error', error.response)
+          if (error.response.statusText === 'Not Found') {
+            this.notFound = '請選擇 城市 與 特色'
+          }
         })
-    }
-  },
-  watch: {
-    selectCity: function () {
+    },
+    clickSearch () {
       this.getData()
       this.Tourism.forEach((item) => {
         if (item.en === this.selectCity) {
           this.selectCityTW = item.city.substr(0, 2)
         }
       })
-    },
-    selectCategory: function () {
-      this.getData()
+    }
+  },
+  watch: {
+    selectCity: function () {
+      this.Tourism.forEach((item) => {
+        if (item.en === this.selectCity) {
+          this.selectCityTW = item.city.substr(0, 2)
+        }
+      })
     }
   },
   created () {

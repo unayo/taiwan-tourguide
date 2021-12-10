@@ -19,10 +19,8 @@
           <p class="text-white">服務據點：台北市中山區明水路636號</p>
           <div class="text-white my-5">
             |<router-link to='/' class="text-white mx-5 fw-bolder">我的行程</router-link>
-            |<router-link to='/' class="text-white mx-5 fw-bolder">找美食</router-link>
-            |<router-link to='/' class="text-white mx-5 fw-bolder">找景點</router-link>
-            |<router-link to='/' class="text-white mx-5 fw-bolder">找旅宿</router-link>
-            |<router-link to='/' class="text-white mx-5 fw-bolder">找活動</router-link>|
+            |<router-link to='/tour' class="text-white mx-5 fw-bolder">找行程</router-link>
+            |<router-link to='/map' class="text-white mx-5 fw-bolder">看地圖</router-link>|
           </div>
           <small class="text-white">© 2021 Copyright LET’S GO | Design.Rey Chang, Frontend.Ayo</small>
         </div>

@@ -16,6 +16,11 @@ const routes = [
     path: '/tour/:id',
     name: 'TourDetail',
     component: () => import('../views/TourItems.vue')
+  },
+  {
+    path: '/map',
+    name: 'Map',
+    component: () => import('../views/Map.vue')
   }
 ]
 

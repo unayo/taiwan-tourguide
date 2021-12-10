@@ -1,14 +1,14 @@
 <template>
   <div class="home">
-    <div class="h-100 container position-relative overflow-hdden">
+    <div class="h-100 container position-relative">
       <img alt="rocket" class="rocket position-absolute" src="@/assets/images/rocket.png">
       <div class="h-100 row justify-content-center justify-content-md-end align-items-center">
-          <div class="col-4">
-          <h3>訂製你的專屬旅程</h3>
+          <div class="custom-phone col-10 col-md-4">
+          <h3 class="text-white text-center">訂製你的專屬旅程</h3>
             <select
               v-model="getCity"
               class="form-select shadow mb-4" aria-label="city">
-              <option selected value="">選擇城市</option>
+              <option value="">選擇城市</option>
               <template v-for="item in Tourism" :key="item.city">
                 <option :value="item.en">{{ item.city }}</option>
               </template>
@@ -16,7 +16,7 @@
           <select
             v-model="getCategory"
             class="form-select shadow mb-4" aria-label="food">
-            <option selected value="">選擇特色</option>
+            <option value="">選擇特色</option>
             <template v-for="item in Category" :key="item.name">
               <option :value="item.name">{{ item.tag }}</option>
             </template>
@@ -27,11 +27,11 @@
             <button
               @click="emit"
               type="submit" class="btn btn-secondary text-white shadow">
-              <img alt="logo" class="logo" src="@/assets/images/search.svg">
+              <img alt="logo" src="@/assets/images/search.svg">
               搜尋
             </button>
           </div>
-        </div>
+          </div>
       </div>
     </div>
   </div>
@@ -40,29 +40,42 @@
 <style lang="scss">
 .home {
   background-image: url('../assets/images/bg-home.png');
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  .h-100 {
-    height: 100%;
-  }
   .rocket {
     z-index: 1;
     top: 50%;
     left: 45%;
     transform: translate(-50%, -45%);
-    height: 80%;
-    &::before {
+    width: 37vw;
+    object-fit: contain;
+    &::after {
       position: absolute;
-      content: '這是一段文字';
+      content: url('../assets/images/cloud.png');
       width: 50px;
       height: 50px;
       background: red;
       bottom: 0;
       left: 80px;
     }
+  }
+}
+// 手機版
+@media (max-width: 767px) {
+  .home {
+    height: auto;
+    .rocket {
+      top: 21%;
+      width: 72vw;
+      transform: translate(-45%, -21%);
+    }
+  }
+  .custom-phone {
+    padding-top: 650px;
+    padding-bottom: 45px;
   }
 }
 .form-select {
