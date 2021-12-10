@@ -18,7 +18,9 @@
       class="orangeCircle rounded-circle bg-primary"></div>
     </div>
   </router-link>
-  <router-view/>
+  <router-view
+    @emit-home="getHomeInfo"
+    :get-props="getInfo" />
 </template>
 
 <style lang="scss">
@@ -77,6 +79,17 @@
 
 <script>
 export default {
+  methods: {
+    getHomeInfo (city, feature) {
+      this.getInfo = { City: city, Category: feature }
+      console.log('emit-get', this.getInfo.City)
+    }
+  },
+  data () {
+    return {
+      getInfo: []
+    }
+  },
   computed: {
     look () {
       if (this.$route.path === '/') {

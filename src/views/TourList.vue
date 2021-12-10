@@ -30,8 +30,7 @@
       </div>
     </div>
     <div class="map position-absolute">
-      <button
-        type="submit" class="btn btn-light shadow">
+      <button type="submit" class="btn btn-light shadow">
         <img alt="logo" class="logo" src="@/assets/images/map.svg">
       </button>
     </div>
@@ -66,12 +65,14 @@ import Card from '@/components/Card.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
+  props: ['getProps'],
   components: {
     Card,
     Footer
   },
   data () {
     return {
+      homeInfo: this.getProps,
       selectCategory: 'Restaurant',
       selectCity: 'Tainan',
       selectCityTW: '台南',
@@ -228,6 +229,9 @@ export default {
     }
   },
   created () {
+    // 初始推入首頁的資訊 props
+    this.selectCity = this.homeInfo.City
+    this.selectCategory = this.homeInfo.Category
     this.getData()
   }
 }

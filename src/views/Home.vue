@@ -5,22 +5,27 @@
       <div class="h-100 row justify-content-center justify-content-md-end align-items-center">
           <div class="col-4">
           <h3>訂製你的專屬旅程</h3>
-            <select class="form-select shadow mb-4" aria-label="city">
-              <option selected>選擇城市</option>
+            <select
+              v-model="getCity"
+              class="form-select shadow mb-4" aria-label="city">
+              <option selected value="">選擇城市</option>
               <template v-for="item in Tourism" :key="item.city">
-                <option :value="item.val">{{ item.city }}</option>
+                <option :value="item.en">{{ item.city }}</option>
               </template>
             </select>
-          <select class="form-select shadow mb-4" aria-label="food">
-            <option selected>選擇特色</option>
+          <select
+            v-model="getCategory"
+            class="form-select shadow mb-4" aria-label="food">
+            <option selected value="">選擇特色</option>
             <template v-for="item in Category" :key="item.name">
-              <option :value="item.val">{{ item.tag }}</option>
+              <option :value="item.name">{{ item.tag }}</option>
             </template>
           </select>
           <input type="text" class="form-control shadow mb-4" aria-describedby="keyword" placeholder="輸入關鍵字..">
           <div class="d-grid gap-2">
+            <!-- @click="pushRouter" -->
             <button
-              @click="pushRouter"
+              @click="emit"
               type="submit" class="btn btn-secondary text-white shadow">
               <img alt="logo" class="logo" src="@/assets/images/search.svg">
               搜尋
@@ -78,123 +83,122 @@ export default {
   name: 'Home',
   data () {
     return {
+      getCity: '',
+      getCategory: '',
       Tourism: [
         {
           city: '臺北市',
-          val: 1
+          en: 'Taipei'
         },
         {
           city: '新北市',
-          val: 2
+          en: 'NewTaipei'
         },
         {
           city: '桃園市',
-          val: 3
+          en: 'Taoyuan'
         },
         {
           city: '臺中市',
-          val: 4
+          en: 'Taichung'
         },
         {
           city: '臺南市',
-          val: 5
+          en: 'Tainan'
         },
         {
           city: '高雄市',
-          val: 6
+          en: 'Kaohsiung'
         },
         {
           city: '基隆市',
-          cal: 7
+          en: 'Keelung'
         },
         {
           city: '新竹市',
-          val: 8
+          en: 'Hsinchu'
         },
         {
           city: '新竹縣',
-          val: 9
+          en: 'HsinchuCounty'
         },
         {
           city: '苗栗縣',
-          val: 10
+          en: 'MiaoliCounty'
         },
         {
           city: '彰化縣',
-          val: 11
+          en: 'ChanghuaCounty'
         },
         {
           city: '南投縣',
-          val: 12
+          en: 'NantouCounty'
         },
         {
           city: '雲林縣',
-          val: 13
+          en: 'YunlinCounty'
         },
         {
           city: '嘉義縣',
-          val: 14
+          en: 'ChiayiCounty'
         },
         {
           city: '嘉義市',
-          val: 15
+          en: 'Chiayi'
         },
         {
           city: '屏東縣',
-          val: 16
+          en: 'PingtungCounty'
         },
         {
           city: '宜蘭縣',
-          val: 17
+          en: 'YilanCounty'
         },
         {
           city: '花蓮縣',
-          val: 18
+          en: 'HualienCounty'
         },
         {
           city: '臺東縣',
-          val: 19
+          en: 'TaitungCounty'
         },
         {
           city: '金門縣',
-          val: 20
+          en: 'KinmenCounty'
         },
         {
           city: '澎湖縣',
-          val: 21
+          en: 'PenghuCounty'
         },
         {
           city: '連江縣',
-          val: 22
+          en: 'LienchiangCounty'
         }
       ],
       Category: [
         {
           name: 'ScenicSpot',
-          tag: '景點',
-          val: 1
+          tag: '景點'
         },
         {
           name: 'Restaurant',
-          tag: '餐飲',
-          val: 2
+          tag: '美食'
         },
         {
           name: 'Hotel',
-          tag: '旅宿',
-          val: 3
+          tag: '旅宿'
         },
         {
           name: 'Activity',
-          tag: '活動',
-          val: 4
+          tag: '活動'
         }
       ],
       tour: []
     }
   },
   methods: {
-    pushRouter () {
+    emit () {
+      this.$emit('emit-home', this.getCity, this.getCategory)
       this.$router.push('/tour')
     }
   }
