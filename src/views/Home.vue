@@ -93,6 +93,7 @@ option {
 
 <script>
 export default {
+  emits: ['emit-home'],
   name: 'Home',
   data () {
     return {
@@ -211,6 +212,7 @@ export default {
   },
   methods: {
     emit () {
+      // emit -> App.vue
       this.$emit('emit-home', this.getCity, this.getCategory)
       this.$router.push('/tour')
     }

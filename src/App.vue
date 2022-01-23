@@ -102,15 +102,15 @@
 
 <script>
 export default {
-  methods: {
-    getHomeInfo (city, feature) {
-      this.getInfo = { City: city, Category: feature }
-      console.log('emit-get', this.getInfo.City)
-    }
-  },
   data () {
     return {
       getInfo: []
+    }
+  },
+  methods: {
+    getHomeInfo (city, feature) {
+      this.getInfo = { City: city, Category: feature }
+      // console.log('emit-get', this.getInfo.City)
     }
   },
   computed: {

@@ -84,6 +84,7 @@ import Footer from '@/components/Footer.vue'
 
 export default {
   props: ['getProps'],
+  emits: ['emit-home'],
   components: {
     Card,
     Footer
