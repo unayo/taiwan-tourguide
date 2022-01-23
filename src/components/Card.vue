@@ -1,14 +1,14 @@
 <template>
 <div class="row my-5">
-  <template v-for="item in cardItem" :key="item.ID">
+  <template v-for="item in cardItem" :key="item.Name">
     <div class="card-item col-6 col-md-4 col-lg-3 my-3">
       <a
-        @click.prevent="itemsDetail(item.ID)"
+        @click.prevent="itemsDetail(item)"
         href="#" class="item">
         <div class="bg-shadow rounded-1 card bg-dark text-white">
           <img
-            :src="Object.values(item.Picture).length < 1 ? require('@/assets/images/img.png') : item.Picture.PictureUrl1"
-            class="rounded-1 card-img h-100" alt="item.Picture.PictureDescription1">
+            :src="item.Picture?.PictureUrl1 || require('@/assets/images/img.png')"
+            class="rounded-1 card-img h-100" :alt="item.Picture?.PictureDescription1 || 'banner'">
           <div class="overlay">
             <div class="pin">
               <img src="../assets/images/pin.png" class="" alt="image">
@@ -30,7 +30,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                   <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                 </svg>
-                {{ item.Address.substr(0, 3) }} {{ item.City }}
+                {{ item.Address }}
               </p>
             </div>
           </div>
@@ -120,15 +120,20 @@ export default {
   data () {
     return {
       color: 'background-color: #FF6F6E;'
+      // idName: ''
     }
   },
   methods: {
-    itemsDetail (id) {
-      this.$router.push(`/tour/${id}`)
+    itemsDetail (item) {
+      console.log('item', item)
+      console.log('this.idName', this.idName)
+      console.log('item[this.idName]', item[this.idName])
+      this.$router.push(`/tour/${item[this.idName]}`)
     }
   },
   watch: {
     cardTag: function () {
+      // 改變 tag 顏色
       switch (this.cardTag) {
         case 'Restaurant':
           this.color = 'background-color: #FF6F6E;'
@@ -143,6 +148,15 @@ export default {
           this.color = 'background-color: #7879F1;'
           break
       }
+      // 組合 api 的屬性 id
+      // this.idName = `${this.cardTag}Id`
+      // console.log('idName ', this.idName)
+    }
+  },
+  computed: {
+    idName () {
+      if (this.cardTag) return `${this.cardTag}ID`
+      return null
     }
   }
 }

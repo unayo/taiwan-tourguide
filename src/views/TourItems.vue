@@ -1,7 +1,7 @@
 <template>
   <img
-  :src="Object.values(getapiData.Picture).length < 1 ? require('../assets/images/banner.png') : getapiData.Picture.PictureUrl1"
-  class="banner-image" :alt="getapiData.Picture.PictureDescription1">
+  :src="getapiData.Picture?.PictureUrl1 || require('../assets/images/banner.png')"
+  class="banner-image" :alt="getapiData.Picture?.PictureDescription1 || 'banner'">
   <div class="container my-5">
     <div class="row">
       <div class="col-12 col-md-8">
@@ -127,6 +127,8 @@ import JsSHA from 'jssha'
 import Footer from '@/components/Footer.vue'
 
 export default {
+  props: ['getProps'],
+  emits: ['emit-home'],
   components: {
     Footer
   },
@@ -135,6 +137,7 @@ export default {
       Id: '',
       type: '',
       selectCategory: '',
+      categoryID: '',
       color: '',
       getapiData: {}
     }
@@ -153,7 +156,7 @@ export default {
       return { Authorization: Authorization, 'X-Date': GMTString }
     },
     getData () {
-      const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/${this.selectCategory}?$filter=ID%20eq%20'${this.Id}'&$top=20&$format=JSON`
+      const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/${this.selectCategory}?$filter=${this.selectCategory}ID%20eq%20'${this.Id}'&$top=20&$format=JSON`
       console.log('url', url)
       this.$http.get(url,
         {
@@ -170,7 +173,7 @@ export default {
   created () {
     this.Id = this.$route.params.id
     console.log(this.Id)
-    console.log(this.Id.split('_')[0])
+    // console.log(this.Id.split('_')[0])
     this.type = this.Id.split('_')[0]
     switch (this.type) {
       case 'C1':
