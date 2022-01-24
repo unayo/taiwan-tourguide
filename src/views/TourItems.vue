@@ -1,7 +1,8 @@
 <template>
   <img
   :src="getapiData.Picture?.PictureUrl1 || require('../assets/images/banner.png')"
-  class="banner-image" :alt="getapiData.Picture?.PictureDescription1 || 'banner'">
+  class="banner-image" :alt="getapiData.Picture?.PictureDescription1 || 'banner'"
+  :title="getapiData.Picture?.PictureDescription1 || ''">
   <div class="container my-5">
     <div class="row">
       <div class="col-12 col-md-8">

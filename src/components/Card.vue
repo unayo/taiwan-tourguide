@@ -8,7 +8,8 @@
         <div class="bg-shadow rounded-1 card bg-dark text-white">
           <img
             :src="item.Picture?.PictureUrl1 || require('@/assets/images/img.png')"
-            class="rounded-1 card-img h-100" :alt="item.Picture?.PictureDescription1 || 'banner'">
+            class="rounded-1 card-img h-100" :alt="item.Picture?.PictureDescription1 || 'banner'"
+            :title="item.Picture?.PictureDescription1 || ''">
           <div class="overlay">
             <div class="pin">
               <img src="../assets/images/pin.png" class="" alt="image">
